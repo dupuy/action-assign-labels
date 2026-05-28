@@ -11,7 +11,8 @@ jobs:
   versioning:
     name: Versioning
     runs-on: ubuntu-latest
-    if: github.repository == 'mauroalderete/action-assign-labels'
+    if: github.repository == 'mauroalderete/action-assign-labels' ||
+        github.repository == 'dupuy/action-assign-labels'
     permissions:
       contents: write
     outputs:
@@ -80,7 +81,7 @@ jobs:
           # The last commit was not committed by GitHub.
           # We assume that the push event come directly.
           gh release create ${{ steps.semver.outputs.next }} \
-          --title 'Release ${{ steps.semver.outputs.next }}' \
+          --title '${{ github.repository }} ${{ steps.semver.outputs.next }}' \
           --notes "Changelog Contents :sunglasses:" \
           --generate-notes \
           ./dist.tar.gz
